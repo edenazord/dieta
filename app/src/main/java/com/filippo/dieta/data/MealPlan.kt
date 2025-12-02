@@ -6,13 +6,20 @@ data class ShoppingCategory(val name: String, val items: List<IngredientItem>)
 
 data class DayPlan(
     val day: String,
-    val lunch: List<String>,
-    val snack: List<String>,
-    val dinner: List<String>,
-)
+    var lunch: List<String>,
+    var snack: List<String>,
+    var dinner: List<String>,
+) {
+    fun copy(
+        day: String = this.day,
+        lunch: List<String> = this.lunch,
+        snack: List<String> = this.snack,
+        dinner: List<String> = this.dinner
+    ) = DayPlan(day, lunch, snack, dinner)
+}
 
 object MealPlan {
-    val shoppingCategories: List<ShoppingCategory> = listOf(
+    fun getDefaultShoppingCategories(): List<ShoppingCategory> = listOf(
         ShoppingCategory(
             name = "Proteine",
             items = listOf(
@@ -85,7 +92,7 @@ object MealPlan {
         ),
     )
 
-    val weekPlan: List<DayPlan> = listOf(
+    fun getDefaultWeekPlan(): List<DayPlan> = listOf(
         DayPlan(
             day = "Lunedì",
             lunch = listOf(
